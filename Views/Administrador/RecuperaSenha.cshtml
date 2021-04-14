@@ -1,0 +1,40 @@
+﻿@model LibraryKeyApp.Models.Administrador
+@{
+    ViewData["Title"] = "Recuperar Senha";
+}
+
+<h1>Recuperar Senha</h1>
+
+<hr />
+
+<div class="row">
+
+    <div class="col-md-4">
+        <form asp-action="RecuperaSenha">
+            <div>
+                @if (TempData["mensagemAlerta"] != null)
+                {
+                    <div class="alert alert-primary float-lg-right">
+                        <label class="control-label" style="text-align:center"> @TempData["mensagemAlerta"]</label>
+                    </div>
+                }
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Login" class="control-label">Login</label>
+                <input asp-for="Login" class="form-control" placeholder="Digite seu login" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Digite o email que você cadastrou" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Enviar" class="btn btn-primary" />
+                <a class="btn btn-light" href="~/Administrador/Login">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>

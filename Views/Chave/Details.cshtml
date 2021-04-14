@@ -1,0 +1,25 @@
+﻿@model LibraryKeyApp.Models.Chave
+
+@{
+    ViewData["Title"] = "Chave";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroChave)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumeroChave)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a> 
+    <a class="btn btn-light" href="~/Chave/Index">Voltar</a>
+    
+</div>

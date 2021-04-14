@@ -1,0 +1,62 @@
+﻿@model LibraryKeyApp.Models.Aluno
+
+@{
+    ViewData["Title"] = "Usuário";
+}
+
+
+    <h1>Novo</h1>
+
+    <hr />
+    <label class="label"><span style="color:red">*</span> Campos obrigatórios</label>
+    <div class="row">
+
+        <div class="col-md-4 formulario">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Matricula" class="control-label">Matrícula ou SIAPE<span style="color:red"> *</span></label>
+                    <input asp-for="Matricula" class="form-control" />
+                    <span asp-validation-for="Matricula" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nome" class="control-label">Nome completo<span style="color:red"> *</span></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="form-group ">
+                    <label asp-for="Turno" class="control-label">Turno<span style="color:red"> *</span></label>
+                    <select asp-for="Turno" asp-items="@ViewBag.Turno" class="btn btn-light" style="width:100%;">Selecione seu turno</select>
+                    <span asp-validation-for="Turno" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email<span style="color:red"> *</span></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Senha" class="control-label">Senha<span style="color:red"> *</span></label>
+                    <input asp-for="Senha" type="password" class="form-control" />
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmarSenha" class="control-label">Confirmar Senha<span style="color:red"> *</span></label>
+                    <input asp-for="ConfirmarSenha" type="password" class="form-control" />
+                    <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Telefone" class="control-label"></label>
+                    <input asp-for="Telefone" class="form-control" />
+                    <span asp-validation-for="Telefone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                    <a class="btn btn-light" href="~/Emprestimo/Create">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

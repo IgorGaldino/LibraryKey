@@ -1,0 +1,61 @@
+﻿@model LibraryKeyApp.Models.Emprestimo
+
+@{
+    Layout = null;
+    ViewBag.Title = "Edit";
+}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
+            <h4>Informe sua matrícula e senha</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group" style="display:none">
+                            <label asp-for="Mat" class="control-label"></label>
+                            <input asp-for="Mat" class="form-control" />
+                            <span asp-validation-for="Mat" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Senha" class="control-label"></label>
+                            <input asp-for="Senha" type="password" class="form-control" />
+                            <span asp-validation-for="Senha" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label asp-for="Devolucao" class="control-label"></label>
+                            <input asp-for="Devolucao" class="form-control" />
+                            <span asp-validation-for="Devolucao" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label asp-for="Locacao" class="control-label"></label>
+                            <input asp-for="Locacao" class="form-control" />
+                            <span asp-validation-for="Locacao" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label asp-for="ChaveId" class="control-label"></label>
+                            <input asp-for="ChaveId" class="form-control" />
+                            <span asp-validation-for="ChaveId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label asp-for="AlunoId" class="control-label"></label>
+                            <input asp-for="AlunoId" class="form-control" />
+                            <span asp-validation-for="AlunoId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Devolver" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

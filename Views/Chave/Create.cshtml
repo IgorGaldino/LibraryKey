@@ -1,0 +1,30 @@
+﻿@model LibraryKeyApp.Models.Chave
+
+@{
+    ViewData["Title"] = "Chave";
+}
+
+<h1>Novo</h1>
+
+<hr />
+<label class="label"><span style="color:red">*</span> Campos obrigatórios</label>
+<div class="row">
+    <div class="col-md-4 formulario">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NumeroChave" class="control-label">Insira o número da chave<span style="color:red"> *</span></label>
+                <input asp-for="NumeroChave" class="form-control" />
+                <span asp-validation-for="NumeroChave" class="text-danger" ></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                <a class="btn btn-light" href="~/Chave/Index">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

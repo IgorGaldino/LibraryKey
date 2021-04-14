@@ -1,0 +1,48 @@
+﻿@model X.PagedList.IPagedList<LibraryKeyApp.Models.Administrador>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Common
+
+@{
+    //@model IEnumerable<LibraryKeyApp.Models.Administrador>
+    ViewData["Title"] = "Administrador";
+}
+
+<h1>Administradores</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">+ Administrador</a>
+    <a class="btn btn-outline-dark" href="~/Administrador/">Voltar</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Login
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Detalhes</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@Html.PagedListPager(Model, pagina => Url.Action("List", "Administrador", new { pagina }), new PagedListRenderOptionsBase
+{
+    LiElementClasses = new string[] {"page-item"},
+    PageClasses = new string[] {"page-link"}
+})

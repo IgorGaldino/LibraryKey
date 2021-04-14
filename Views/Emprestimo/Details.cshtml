@@ -1,0 +1,28 @@
+﻿@model LibraryKeyApp.Models.Emprestimo
+
+@{
+    ViewData["Title"] = "Emprestimo";
+}
+
+<div>
+    <h1>Detailhes</h1>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Locacao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Locacao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Devolucao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Devolucao)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

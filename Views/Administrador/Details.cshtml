@@ -1,0 +1,24 @@
+﻿@model LibraryKeyApp.Models.Administrador
+
+@{
+    ViewData["Title"] = "Administrador";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Login
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Login)
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+    <a class="btn btn-light" href="~/Administrador/List">Voltar</a>
+</div>

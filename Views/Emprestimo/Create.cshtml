@@ -1,0 +1,150 @@
+﻿@model LibraryKeyApp.Models.Emprestimo
+
+@{
+    ViewData["Title"] = "Empréstimo";
+}
+
+
+
+<h2>
+    Empréstimo
+    <a class="btn btn-light float-md-right" href="~/Aluno/RecuperaSenha">Esqueci minha senha</a>
+    <a class="btn btn-primary float-md-right" href="~/Aluno/Create">Cadastre-se</a>
+</h2>
+
+
+<hr />
+
+<div class="row justify-content-md-start">
+    <span class="btn btn-success disabled">  </span>
+    <span style="margin-left:10px">Chave Disponível</span>
+</div>
+
+<div class="row justify-content-md-start" style="margin-top:10px">
+    <span class="btn btn-secondary disabled">  </span>  
+    <span style="margin-left:10px">Chave não Disponível</span>
+</div>
+
+<div class="row justify-content-md-center">
+    @foreach (Chave item in @ViewBag.Chaves)
+    {
+        string disponivel = "/Images/disponivel.png";
+        string naodisponivel = "/Images/naodisponivel.png";
+
+        if (item.Disponivel)
+        {
+
+            <div class="m-3">
+                
+                <label asp-for="Chave" class="control-label align-top" style="font-size:20px; font-weight:900;
+                box-shadow: none; background-color: #fff;">@item.NumeroChave</label>
+                <input name="ChaveId" title="Pegar" class="btn btn-light create" type="image" src="@disponivel"
+                       width="100" height="90" id="@item.NumeroChave" value="@item.Id" />
+            </div>
+
+        }
+        else
+        {
+            <div class="m-3">
+                <label asp-for="Chave" class="control-label align-top"style="font-size:20px; font-weight:900; border: 0; 
+                box-shadow: none; background-color: #fff;">@item.NumeroChave</label>
+                <input asp-for="ChaveId" title="Devolver" class="btn btn-light disabled devolucao" type="image" src="@naodisponivel"
+                       width="100" height="90" id="@item.NumeroChave" value="@item.NumeroChave" />
+            </div>
+        }
+
+    }
+
+</div>
+<div class="modal" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group" style="display:none">
+                                <input asp-for="ChaveId" id="numChave" class="form-control" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Mat" class="control-label">Matrícula ou SIAPE</label>
+                                <input asp-for="Mat" class="form-control" />
+                                <span asp-validation-for="Mat" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Senha" class="control-label"></label>
+                                <input asp-for="Senha" type="password" class="form-control" />
+                                <span asp-validation-for="Senha" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Confirmar Emprestimo" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>Informe seus dados</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+                            <div class="form-group">
+                                <label class="control-label font-weight-bold">Número da Chave</label>
+                                <input asp-for="numChave" id="numeroChave" class="form-control" style="font-size:20px; font-weight:900; border: 0; box-shadow: none; background-color: #fff;"
+                                       value="" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Mat" class="control-label">Matrícula ou SIAPE</label>
+                                <input asp-for="Mat" class="form-control" />
+                                <span asp-validation-for="Mat" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Senha" class="control-label"></label>
+                                <input asp-for="Senha" type="password" class="form-control" />
+                                <span asp-validation-for="Senha" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Devolver" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $(".create").click(function (value) {
+                console.log('value', value.currentTarget.defaultValue);
+                var idChave = value.currentTarget.defaultValue;
+                $('#numChave').val(idChave);
+                $("#modal").modal();
+            });
+        });
+
+        $(function () {
+            $(".devolucao").click(function (value) {
+                console.log('value', value.currentTarget.defaultValue);
+                var idChave = value.currentTarget.defaultValue;
+                $('#numeroChave').val(idChave);
+                $("#modal-edit").modal();
+            });
+        });
+
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

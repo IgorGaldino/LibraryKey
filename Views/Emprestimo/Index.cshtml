@@ -1,0 +1,87 @@
+﻿@model IEnumerable<LibraryKeyApp.Models.Emprestimo>
+@*INDEX DE EMPRESTIMO*@
+
+@{
+    ViewData["Title"] = "Emprestimo";
+
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+				Matricula
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Devolucao)
+            </th>
+            <th>
+                Número da Chave
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locacao)
+                </td>
+                <td>
+                    @{
+                        if (item.Devolucao == DateTime.MinValue)
+                        {
+                            <p>Não devolvido</p>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.Devolucao)
+                        }
+                    }
+
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numChave)
+                </td>
+                <td>
+                    @{
+                        if (item.Devolucao == DateTime.MinValue)
+                        {
+                            <button class="btn btn-primary edit" data-id="@item.Id"><i class="glyphicon glyphicon-edit"></i>Devolver</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary" disabled><i class="glyphicon glyphicon-edit"></i>Devolver</button>
+                        }
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="modal" id="modal">
+
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $(".edit").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("Emprestimo/Edit?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}

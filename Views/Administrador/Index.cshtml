@@ -1,0 +1,124 @@
+﻿@model X.PagedList.IPagedList<LibraryKeyApp.Models.Emprestimo>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Common
+
+@*@model IEnumerable<LibraryKeyApp.Models.Emprestimo>*@
+@*@model LibraryKeyApp.Models.Emprestimo*@
+@*INDEX DE ADMINISTRADOR*@
+@{
+    ViewData["Title"] = "Início";
+}
+
+
+<h1>
+    Administrador
+    <a asp-action="Logout" class="float-lg-right" style="color:black; font-size:20px;">Sair <img src="~/Images/sairblack.png" width="20" /></a>
+</h1>
+
+<div>
+    <a class="btn btn-outline-primary" href="~/Administrador/List">Administradores</a>
+    <a class="btn btn-outline-primary" href="~/Chave/Index">Chaves</a>
+    <a class="btn btn-outline-primary" href="~/Aluno/Index">Usuários</a>
+
+    <p1 class="float-lg-right">
+        <label for="count" style="font-size:18px; font-weight:400; border: 0;
+                    box-shadow: none; background-color: #fff;">Chaves não devolvidas:</label>
+        @if (ViewBag.Count == 0)
+        {
+            <label id="count" class="btn btn-outline-primary" style="font-size:18px; font-weight:600;">@ViewBag.Count</label>
+        }
+        else
+        {
+            <a id="count" asp-action="FindNaoDevolvidos" class=" btn btn-danger" style="font-size:18px; font-weight:600;">@ViewBag.Count</a>
+        }
+
+    </p1>
+
+</div>
+
+<br />
+<div class="form-group">
+    <form asp-controller="Administrador" asp-action="Index" method="post">
+        <div class="input-group-text border-primary" style="background-color:#fff;">
+            <div>
+                <label>Buscar por data: </label>
+            </div>
+            <div class="m-2 input-group-prepend">
+                <input class="form-control" type="date" name="Busca" />
+            </div>
+            <div style="justify-content:center">
+                <input type="submit" class="btn btn-primary m-1" value="Buscar" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Matrícula ou SIAPE
+            </th>
+            <th>
+                Usuário
+            </th>
+            <th>
+                Locação
+            </th>
+            <th>
+                Devolução
+            </th>
+            <th>
+                Número da Chave
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeAluno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locacao)
+                </td>
+                <td>
+                    @{
+                        if (item.Devolucao == DateTime.MinValue)
+                        {
+                            <p style="color: #f00;">Não devolvido</p>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.Devolucao)
+                        }
+                    }
+                </td>
+                <td>
+                    <a id="count" class="btn btn-outline-primary" font-weight:600;">
+                        @Html.DisplayFor(modelItem => item.numChave)
+                    </a>
+                    @Html.ActionLink(
+                        "Devolver",
+                        "DevolverChave",
+                        "Administrador",
+                        new { confirm = true, empId = item.Id},
+                        new { onclick = "return confirm('Você deseja devolver esta chave?')" }
+                    )
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@Html.PagedListPager(Model, pagina => Url.Action("Index", "Administrador", new { pagina }), new PagedListRenderOptionsBase
+{
+    LiElementClasses = new string[] {"page-item"},
+    PageClasses = new string[] {"page-link"}
+})
